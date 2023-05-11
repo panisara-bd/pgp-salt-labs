@@ -1,7 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCakeCandles,
+  faLocationDot,
+  faPenToSquare,
+} from '@fortawesome/free-solid-svg-icons';
 
 type Location = {
   street: {
@@ -21,7 +25,10 @@ type User = {
     first: string;
     last: string;
   };
-  dob: { age: number };
+  dob: {
+    age: number;
+    date: string;
+  };
   location: Location;
 };
 
@@ -49,7 +56,7 @@ export default function App() {
           placeholder="Type in new name here"
           onChange={(event) => setNewName(event.target.value)}
         />
-        <ButtonSave type="submit">Save</ButtonSave>
+        <ButtonMain type="submit">Save</ButtonMain>
       </FormContainer>
     );
   };
@@ -70,9 +77,27 @@ export default function App() {
   console.log(user);
 
   return !user ? (
-    <div>Loading</div>
+    <PageContainer>
+      <Header>Randomize Users</Header>
+      <ButtonMain
+         style={{ marginBottom: 30, fontSize: 18, color: '#006400' }}
+        onClick={() => window.location.reload()}
+      >
+        Get new user 👽
+      </ButtonMain>
+      <CardContainer style={{ alignItems: 'center', height: 540, width: 350}}>
+        <Loader />
+      </CardContainer>
+    </PageContainer>
   ) : (
     <PageContainer>
+      <Header>Randomize Users</Header>
+      <ButtonMain
+        style={{ marginBottom: 30, fontSize: 18, color: '#006400' }}
+        onClick={() => window.location.reload()}
+      >
+        Click to reload!
+      </ButtonMain>
       <CardContainer>
         <NameContainer>
           {isNewName === false ? (
@@ -90,13 +115,26 @@ export default function App() {
         </NameContainer>
         {showForm ? <NameChangeForm /> : null}
 
-        <ContentText>Age: {user.dob.age}</ContentText>
+        <ContentText>
+          {' '}
+          <FontAwesomeIcon
+            icon={faCakeCandles}
+            size="sm"
+            style={{ paddingInline: 10 }}
+          />
+          {user.dob.date.split('T')[0]} yrs({user.dob.age} yrs)
+        </ContentText>
+
         {!location ? (
           <ContentText>Location is not available</ContentText>
         ) : (
           <>
-            <ContentText>Address:</ContentText>
             <ContentText>
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                size="sm"
+                style={{ paddingInline: 10 }}
+              />
               {`${location.street.number} ${location.street.name}, ${location.city}, ${location?.country}, ${location?.postcode}`}
             </ContentText>
           </>
@@ -114,9 +152,20 @@ const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100vh;
-  background: #2e8b57;
+  background: rgb(190, 245, 119);
+  background: radial-gradient(
+    circle,
+    rgba(190, 245, 119, 1) 0%,
+    rgba(245, 245, 245, 1) 62%
+  );
 `;
+
+const Header = styled.h1`
+  font-size: 50px;
+`;
+
 const CardContainer = styled.div`
   display: flex;
   padding: 40px;
@@ -124,7 +173,7 @@ const CardContainer = styled.div`
   max-width: 350px;
   align-content: center;
   justify-content: center;
-  background: rgba(254, 254, 254, 0.2);
+  background: rgb(211, 211, 211, 0.3);
   border-radius: 15px;
 `;
 
@@ -136,7 +185,7 @@ const NameContainer = styled.div`
 
 const NameText = styled.p`
   margin: 0;
-  font-family: system-ui;
+  font-family: 'Mukta', sans-serif;
   font-size: 30px;
   line-height: 60px;
 `;
@@ -157,19 +206,21 @@ const NameInput = styled.input`
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
+  font-family: 'Mukta', sans-serif;
   width: 250px;
 `;
 
-const ButtonSave = styled.button`
-  background: #2e8b57;
+const ButtonMain = styled.button`
+  background: #9acd32;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
+  font-family: 'Mukta', sans-serif;
 `;
 
 const Image = styled.img`
   padding: 10px 0 20px 0;
-  width: 350px;
+  max-width: 350px;
 `;
 
 const ContentText = styled.p`
@@ -177,4 +228,26 @@ const ContentText = styled.p`
   font-family: system-ui;
   font-size: 20px;
   line-height: 30px;
+`;
+
+const Loader = styled.div`
+  align-content: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
 `;
