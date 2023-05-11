@@ -2,11 +2,11 @@
   "name": "addons-ts-lab-puppiesapi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "compile": "tsc *.ts --outDir js",
     "compile:watch": "npm run compile -- --watch *.ts",
-    "test": "jest --watch --silent"
+    "test": "MONGODB_URL=mongodb://puppytest:puppytestpw@localhost:27017 jest test.ts --watch",
+    "start": "node js/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.17.3",
+    "joi": "^17.9.2",
     "mongodb": "^5.4.0"
   },
   "devDependencies": {
