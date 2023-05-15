@@ -6,38 +6,15 @@ import {
   faLocationDot,
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
-
-type Location = {
-  street: {
-    name: string;
-    number: number;
-  };
-  city: string;
-  country: string;
-  postcode: number;
-};
-
-type User = {
-  picture: {
-    large: string;
-  };
-  name: {
-    first: string;
-    last: string;
-  };
-  dob: {
-    age: number;
-    date: string;
-  };
-  location: Location;
-};
+import { User } from './type';
 
 export default function App() {
   const [user, setUser] = useState<User>();
-  const location = user?.location;
   const [newName, setNewName] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [isNewName, setIsNewName] = useState(false);
+
+  const location = user?.location;
 
   const NameChangeForm = () => {
     const handleSubmit = (event: FormEvent) => {
@@ -80,12 +57,12 @@ export default function App() {
     <PageContainer>
       <Header>Randomize Users</Header>
       <ButtonMain
-         style={{ marginBottom: 30, fontSize: 18, color: '#006400' }}
+        style={{ marginBottom: 30, fontSize: 18, color: '#006400' }}
         onClick={() => window.location.reload()}
       >
         Get new user 👽
       </ButtonMain>
-      <CardContainer style={{ alignItems: 'center', height: 540, width: 350}}>
+      <CardContainer style={{ alignItems: 'center', height: 540, width: 350 }}>
         <Loader />
       </CardContainer>
     </PageContainer>
@@ -96,7 +73,7 @@ export default function App() {
         style={{ marginBottom: 30, fontSize: 18, color: '#006400' }}
         onClick={() => window.location.reload()}
       >
-        Click to reload!
+        Get new user 👽
       </ButtonMain>
       <CardContainer>
         <NameContainer>
@@ -164,6 +141,10 @@ const PageContainer = styled.div`
 
 const Header = styled.h1`
   font-size: 50px;
+
+  @media (max-width: 425px) {
+    font-size: 30px;
+  }
 `;
 
 const CardContainer = styled.div`
@@ -175,6 +156,12 @@ const CardContainer = styled.div`
   justify-content: center;
   background: rgb(211, 211, 211, 0.3);
   border-radius: 15px;
+  margin: 20px;
+
+  @media (max-width: 425px) {
+    padding: 20px;
+    max-width: 300px;
+  }
 `;
 
 const NameContainer = styled.div`
@@ -188,6 +175,10 @@ const NameText = styled.p`
   font-family: 'Mukta', sans-serif;
   font-size: 30px;
   line-height: 60px;
+
+  @media (max-width: 425px) {
+    font-size: 26px;
+  }
 `;
 
 const ButtonIcon = styled.button`
@@ -198,6 +189,7 @@ const FormContainer = styled.form`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-bottom: 20px;
 `;
 
 const NameInput = styled.input`
@@ -208,6 +200,13 @@ const NameInput = styled.input`
   font-size: 14px;
   font-family: 'Mukta', sans-serif;
   width: 250px;
+
+  @media (max-width: 425px) {
+    max-width: 200px;
+  }
+  @media (max-width: 320px) {
+    max-width: 150px;
+  }
 `;
 
 const ButtonMain = styled.button`
@@ -226,7 +225,7 @@ const Image = styled.img`
 const ContentText = styled.p`
   margin: 0;
   font-family: system-ui;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 30px;
 `;
 
