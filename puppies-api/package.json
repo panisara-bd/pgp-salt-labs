@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "tsc *.ts --outDir js",
     "compile:watch": "npm run compile -- --watch *.ts",
-    "test": "MONGODB_URL=mongodb://puppytest:puppytestpw@localhost:27017 jest test.ts --watch",
+    "test": "MONGODB_URL=mongodb://puppytest:puppytestpw@localhost:27017 jest test.ts",
     "start": "node js/server.js"
   },
   "repository": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/appliedtechnology/addons-ts-lab-puppiesApi#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.17.3",
     "joi": "^17.9.2",

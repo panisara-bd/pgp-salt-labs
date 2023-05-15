@@ -1,10 +1,10 @@
-import * as dotenv from 'dotenv' 
-dotenv.config()
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 import { mongoClient } from './src/db';
 import app from './src/app';
 
-const port = 3000;
+const port = 8080;
 
 mongoClient
   .connect()
@@ -16,9 +16,9 @@ mongoClient
   })
   .catch(console.error);
 
-  process.on('SIGINT', async () => {
-    console.log('Cleaning up ...');
-    await mongoClient.close()
-    console.log('Disconnected from the database');
-    process.exit();
-  });
+process.on('SIGINT', async () => {
+  console.log('Cleaning up ...');
+  await mongoClient.close();
+  console.log('Disconnected from the database');
+  process.exit();
+});

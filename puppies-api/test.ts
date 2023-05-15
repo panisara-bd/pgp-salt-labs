@@ -21,6 +21,12 @@ const dogC: PuppyData = {
   birthdate: '2019-11-26',
 };
 
+const dogD: PuppyData = {
+  breed: 'Beagle',
+  name: 'Mootoo',
+  birthdate: '2019-05-15',
+};
+
 beforeAll(async () => {
   await mongoClient.connect();
 });
@@ -30,10 +36,12 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await mongoClient
+  const puppiesCollection = mongoClient
     .db('puppies_data')
-    .collection('puppies')
-    .insertMany([dogB, dogC]);
+    .collection('puppies');
+
+  await puppiesCollection.createIndex({ name: 'text', breed: 'text' });
+  await puppiesCollection.insertMany([dogB, dogC, dogD]);
 
   // after insertMany dogB and dogC will have the _id added
 });
@@ -47,18 +55,9 @@ describe('GET: all puppies', () => {
     const res = await request(app).get('/api/puppies');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual([
-      {
-        _id: expect.any(String),
-        birthdate: '2017-06-27',
-        breed: 'Beagle',
-        name: 'Penny',
-      },
-      {
-        _id: expect.any(String),
-        breed: 'French Bulldog',
-        name: 'Frank',
-        birthdate: '2019-11-26',
-      },
+      { ...dogB, _id: dogB._id!.toString() },
+      { ...dogC, _id: dogC._id!.toString() },
+      { ...dogD, _id: dogD._id!.toString() },
     ]);
   });
 });
@@ -125,6 +124,19 @@ describe('DELETE: delete puppy', () => {
         .collection('puppies')
         .find()
         .toArray()
-    ).toEqual([dogB]);
+    ).toEqual([ dogB, dogD]);
+  });
+});
+
+describe('GET: search puppies by name or breed', () => {
+  test('shows puppies result searched by breed', async () => {
+    const res = await request(app).get('/api/puppies/search?query=beagle');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual([{...dogD, _id: dogD._id!.toString()}, {...dogB, _id: dogB._id!.toString()}]);
+  });
+  test('shows puppies result searched by name', async () => {
+    const res = await request(app).get('/api/puppies/search?query=penny');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual([{...dogB, _id: dogB._id!.toString()}]);
   });
 });

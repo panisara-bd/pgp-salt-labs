@@ -43,3 +43,11 @@ export const deletePuppy = async (id: string) =>
     .db('puppies_data')
     .collection('puppies')
     .deleteOne({ _id: new ObjectId(id) });
+
+export const searchPuppy = async (query: string) => 
+  mongoClient
+    .db('puppies_data')
+    .collection('puppies')
+    .find<PuppyData>({ $text: { $search: query } })
+    .toArray();
+
