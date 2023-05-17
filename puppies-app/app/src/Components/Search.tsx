@@ -4,6 +4,7 @@ import { PuppyCard } from './PuppyCard';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { colors } from '../helpers/theme';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,10 +18,10 @@ export const Search = () => {
         `http://localhost:8080/api/puppies/search?query=${query}`
       );
       if (response.ok) {
-      const results = await response.json();
-      setSearchResults(results);}
-      else {
-        setSearchResults([])
+        const results = await response.json();
+        setSearchResults(results);
+      } else {
+        setSearchResults([]);
       }
     } catch (e) {
       console.error(e);
@@ -44,8 +45,8 @@ export const Search = () => {
 
   return (
     <SearchBoxContainer>
-     <SearchIcon>
-      <FontAwesomeIcon icon={faMagnifyingGlass} />
+      <SearchIcon>
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
       </SearchIcon>
       <SearchBoxInput
         type="search"
@@ -53,11 +54,11 @@ export const Search = () => {
         onChange={(event) => onSearchChange(event.target.value)}
         value={searchQuery}
       />
-        {searchResults.map((puppy) => (
-          <SearchResults key={puppy._id} onClick={() => handleClick(puppy._id!)}>
-            {puppy.name}
-          </SearchResults>
-        ))}
+      {searchResults.map((puppy) => (
+        <SearchResults key={puppy._id} onClick={() => handleClick(puppy._id!)}>
+          {puppy.name}
+        </SearchResults>
+      ))}
       {!selectedPuppy ? null : <PuppyCard puppy={selectedPuppy} />}
     </SearchBoxContainer>
   );
@@ -69,9 +70,9 @@ const SearchBoxContainer = styled.div`
 `;
 
 const SearchIcon = styled.div`
- position: absolute;
- padding: 9px 0 0 12px;
-`
+  position: absolute;
+  padding: 9px 0 0 12px;
+`;
 
 const SearchBoxInput = styled.input`
   border: none;
@@ -80,6 +81,7 @@ const SearchBoxInput = styled.input`
   padding-left: 40px;
   width: 400px;
   font-size: 16px;
+  background: #fff;
 
   @media (max-width: 425px) {
     width: 250px;
@@ -89,13 +91,18 @@ const SearchBoxInput = styled.input`
 const SearchResults = styled.li`
   list-style: none;
   padding: 10px;
-  padding-left: 30px;
+  padding-left: 25px;
   background: #fff;
   width: 320px;
   margin-left: 20px;
   font-family: system-ui;
-  border-bottom: 3px solid #fafafa;
+  border-bottom: 3px solid ${colors.lightgray};
 
   &:hover {
-    background: #D0F46F;}
-`
+    background: ${colors.blue};
+  }
+
+  @media (max-width: 425px) {
+    width: 170px;
+  }
+`;

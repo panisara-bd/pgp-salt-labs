@@ -2,15 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { PuppiesContextProvider } from './PuppiesContext';
+import { PuppiesContextProvider } from './helpers/PuppiesContext';
+import { BodyStyle } from './helpers/theme';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <BodyStyle />
     <PuppiesContextProvider>
-    <App />
+      <App />
     </PuppiesContextProvider>
   </React.StrictMode>
 );

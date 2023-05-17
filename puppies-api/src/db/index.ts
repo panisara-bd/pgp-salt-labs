@@ -6,6 +6,7 @@ export type PuppyData = {
   breed: string;
   name: string;
   birthdate: string;
+  image?: string;
 };
 
 const url = process.env.MONGODB_URL;
@@ -44,10 +45,9 @@ export const deletePuppy = async (id: string) =>
     .collection('puppies')
     .deleteOne({ _id: new ObjectId(id) });
 
-export const searchPuppy = async (query: string) => 
+export const searchPuppy = async (query: string) =>
   mongoClient
     .db('puppies_data')
     .collection('puppies')
     .find<PuppyData>({ $text: { $search: query } })
     .toArray();
-

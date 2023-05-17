@@ -13,6 +13,7 @@ const dogB: PuppyData = {
   breed: 'Beagle',
   name: 'Penny',
   birthdate: '2017-06-27',
+  image: 'https://images.dog.ceo/breeds/beagle/166407056_Milo.jpg',
 };
 
 const dogC: PuppyData = {
@@ -124,7 +125,7 @@ describe('DELETE: delete puppy', () => {
         .collection('puppies')
         .find()
         .toArray()
-    ).toEqual([ dogB, dogD]);
+    ).toEqual([dogB, dogD]);
   });
 });
 
@@ -132,11 +133,14 @@ describe('GET: search puppies by name or breed', () => {
   test('shows puppies result searched by breed', async () => {
     const res = await request(app).get('/api/puppies/search?query=beagle');
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual([{...dogD, _id: dogD._id!.toString()}, {...dogB, _id: dogB._id!.toString()}]);
+    expect(res.body).toEqual([
+      { ...dogD, _id: dogD._id!.toString() },
+      { ...dogB, _id: dogB._id!.toString() },
+    ]);
   });
   test('shows puppies result searched by name', async () => {
     const res = await request(app).get('/api/puppies/search?query=penny');
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual([{...dogB, _id: dogB._id!.toString()}]);
+    expect(res.body).toEqual([{ ...dogB, _id: dogB._id!.toString() }]);
   });
 });

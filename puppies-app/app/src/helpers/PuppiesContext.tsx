@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { PuppiesType } from './types';
+import { PuppiesType } from '../types';
 
 type PuppiesContextType = {
   puppies: PuppiesType[];
@@ -14,7 +14,7 @@ type PuppiesContextType = {
 
 export const PuppiesContext = React.createContext<PuppiesContextType>({
   puppies: [],
-  fetchPuppies: () => {}
+  fetchPuppies: () => {},
 });
 
 export const usePuppies = () => useContext(PuppiesContext);
@@ -37,7 +37,7 @@ export const PuppiesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   return (
-    <PuppiesContext.Provider value={{ puppies, fetchPuppies}}>
+    <PuppiesContext.Provider value={{ puppies, fetchPuppies }}>
       {children}
     </PuppiesContext.Provider>
   );

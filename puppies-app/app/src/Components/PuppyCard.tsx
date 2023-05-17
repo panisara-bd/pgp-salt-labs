@@ -6,8 +6,9 @@ import {
   faPaw,
   faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormEvent, useState } from 'react';
-import { usePuppies } from '../PuppiesContext';
+import { useState } from 'react';
+import { PuppyImage, colors } from '../helpers/theme';
+import { UpdatePuppyForm } from './UpdatePuppyForm';
 
 type Props = {
   puppy: PuppiesType;
@@ -15,40 +16,11 @@ type Props = {
 
 export const PuppyCard = ({ puppy }: Props) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [newName, setNewName] = useState(puppy.name);
-  const [newBirthDate, setNewBirthDate] = useState(puppy.birthdate);
-  const [newBreed, setNewBreed] = useState(puppy.breed);
-
-  const { fetchPuppies } = usePuppies();
-
-  const updatePuppy = async () => {
-    try {
-      await fetch(`http://localhost:8080/api/puppies/${puppy._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: newName,
-          birthdate: newBirthDate,
-          breed: newBreed,
-        }),
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    setShowUpdateForm(false);
-    await updatePuppy();
-    fetchPuppies();
-  };
 
   return (
-    <CardContainer>
+    <CardContainer onClick={() => {}} showUpdateForm={showUpdateForm}>
       <ButtonIcon
+        showUpdateForm={showUpdateForm}
         onClick={() => {
           showUpdateForm === false
             ? setShowUpdateForm(true)
@@ -59,37 +31,18 @@ export const PuppyCard = ({ puppy }: Props) => {
       </ButtonIcon>
 
       {showUpdateForm ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            onChange={(e) => setNewName(e.target.value)}
-            value={newName}
-          />
-          <FontAwesomeIcon
-            icon={faCakeCandles}
-            size="sm"
-            style={{ paddingInline: 10 }}
-          />
-          <input
-            type="text"
-            onChange={(e) => setNewBirthDate(e.target.value)}
-            value={newBirthDate}
-          />
-          <FontAwesomeIcon
-            icon={faPaw}
-            size="sm"
-            style={{ paddingInline: 10 }}
-          />
-          <input
-            type="text"
-            onChange={(e) => setNewBreed(e.target.value)}
-            value={newBreed}
-          />
-          <button type="submit">Save</button>
-        </form>
+        <UpdatePuppyForm puppy={puppy} setShowUpdateForm={setShowUpdateForm} />
       ) : (
-        <div>
+        <>
           <NameText>{puppy.name}</NameText>
+          <ContentText>
+            <FontAwesomeIcon
+              icon={faPaw}
+              size="sm"
+              style={{ paddingInline: 10 }}
+            />
+            {puppy.breed}
+          </ContentText>
           <ContentText>
             <FontAwesomeIcon
               icon={faCakeCandles}
@@ -97,35 +50,34 @@ export const PuppyCard = ({ puppy }: Props) => {
               style={{ paddingInline: 10, paddingTop: 10 }}
             />
             {puppy.birthdate}
-            </ContentText>
-            <ContentText>
-            <FontAwesomeIcon
-              icon={faPaw}
-              size="sm"
-              style={{ paddingInline: 10 }}
-            />
-            {puppy.breed}
-            </ContentText>
-        </div>
+          </ContentText>
+          <PuppyImage src={puppy.image || '/cover-default.jpg'} />{' '}
+        </>
       )}
     </CardContainer>
   );
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled.button<{ showUpdateForm: boolean }>`
   display: flex;
   padding: 20px;
+  margin: 20px;
   flex-direction: column;
-  width: 200px;
   justify-content: center;
+  text-align: left;
   background: #fff;
   border-radius: 15px;
-  margin: 20px;
   position: relative;
+  background: ${(props) => (props.showUpdateForm ? colors.green : '#fff')};
+  font: inherit;
+  max-width: 250px;
+  width: 100%;
+  border: none;
 
-  @media (max-width: 425px) {
-    padding: 20px;
-    max-width: 300px;
+  &:hover,
+  &:active {
+    border: 2px solid ${colors.dark};
+    cursor: pointer;
   }
 `;
 
@@ -133,7 +85,7 @@ const NameText = styled.h1`
   margin: 0;
   font-size: 30px;
   padding-inline: 10px;
-  padding-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const ContentText = styled.p`
@@ -143,10 +95,16 @@ const ContentText = styled.p`
   line-height: 30px;
 `;
 
-const ButtonIcon = styled.button`
+const ButtonIcon = styled.button<{ showUpdateForm: boolean }>`
   background: none;
   border: none;
   position: absolute;
   top: 15px;
   right: 13px;
+  color: ${(props) => (props.showUpdateForm ? colors.dark : colors.purple)};
+
+  &:hover {
+    color: ${colors.blue};
+    cursor: pointer;
+  }
 `;
