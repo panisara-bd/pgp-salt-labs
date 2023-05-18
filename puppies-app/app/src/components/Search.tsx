@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { PuppiesType } from '../types';
-import { PuppyCard } from './PuppyCard';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { colors } from '../helpers/theme';
+import { Link } from 'react-router-dom';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<PuppiesType[]>([]);
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout>();
-  const [selectedPuppy, setSelectedPuppy] = useState<PuppiesType>();
 
   const fetchSearchResult = async (query: string) => {
     try {
@@ -37,12 +36,6 @@ export const Search = () => {
     setDebounceTimeout(timeout);
   };
 
-  const handleClick = async (id: string) => {
-    const response = await fetch(`http://localhost:8080/api/puppies/${id}`);
-    const result = await response.json();
-    setSelectedPuppy(result.puppy);
-  };
-
   return (
     <SearchBoxContainer>
       <SearchIcon>
@@ -55,14 +48,14 @@ export const Search = () => {
         value={searchQuery}
       />
       {searchResults.map((puppy) => (
-        <SearchResults key={puppy._id} onClick={() => handleClick(puppy._id!)}>
+        <SearchResults key={puppy._id} to={puppy._id!}>
           {puppy.name}
         </SearchResults>
       ))}
-      {!selectedPuppy ? null : <PuppyCard puppy={selectedPuppy} />}
     </SearchBoxContainer>
   );
 };
+
 const SearchBoxContainer = styled.div`
   display: block;
   position: relative;
@@ -88,10 +81,11 @@ const SearchBoxInput = styled.input`
   }
 `;
 
-const SearchResults = styled.li`
-  list-style: none;
-  padding: 10px;
-  padding-left: 25px;
+const SearchResults = styled(Link)`
+  display: block;
+  text-decoration: none;
+  color: ${colors.dark};
+  padding: 10px 25px;
   background: #fff;
   width: 320px;
   margin-left: 20px;

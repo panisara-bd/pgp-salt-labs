@@ -7,6 +7,11 @@ export type PuppyData = {
   name: string;
   birthdate: string;
   image?: string;
+  allergies: string,
+  favFood: string,
+  favToy: string,
+  spayed: string,
+  about: string,
 };
 
 const url = process.env.MONGODB_URL;

@@ -1,5 +1,19 @@
 import { PuppiesType } from '../types';
 
+export const getPuppy = async (id: string) => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/puppies/${id}`);
+    if (response.ok) {
+      const result = await response.json();
+      return result.puppy;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const updatePuppy = async (updatedPuppy: PuppiesType) => {
   try {
     await fetch(`http://localhost:8080/api/puppies/${updatedPuppy._id}`, {

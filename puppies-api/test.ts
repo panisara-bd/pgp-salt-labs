@@ -7,6 +7,11 @@ const dogA: PuppyData = {
   breed: 'Beagle',
   name: 'Benjy',
   birthdate: '2017-05-11',
+  allergies: 'chicken',
+  favFood: 'banana',
+  favToy: 'sandles',
+  spayed: 'no',
+  about: 'He is cute and stubborn',
 };
 
 const dogB: PuppyData = {
@@ -14,18 +19,33 @@ const dogB: PuppyData = {
   name: 'Penny',
   birthdate: '2017-06-27',
   image: 'https://images.dog.ceo/breeds/beagle/166407056_Milo.jpg',
+  allergies: 'chicken',
+  favFood: 'hard boiled eggs',
+  favToy: 'rat plushy',
+  spayed: 'no',
+  about: 'She needs attention but very calm and lovely'
 };
 
 const dogC: PuppyData = {
   breed: 'French Bulldog',
   name: 'Frank',
   birthdate: '2019-11-26',
+  allergies: 'avocado',
+  favFood: 'chicken',
+  favToy: 'anything that rolls',
+  spayed: 'yes',
+  about: 'He needs a lot of activities and stimulation'
 };
 
 const dogD: PuppyData = {
   breed: 'Beagle',
   name: 'Mootoo',
   birthdate: '2019-05-15',
+  allergies: 'sweets',
+  favFood: 'eats anything',
+  favToy: 'his poncho',
+  spayed: 'yes',
+  about: 'Loves sitting in the park on a sunnyday'
 };
 
 beforeAll(async () => {

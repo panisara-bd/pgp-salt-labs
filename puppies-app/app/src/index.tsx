@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { PuppiesContextProvider } from './helpers/PuppiesContext';
 import { BodyStyle } from './helpers/theme';
 
 const root = ReactDOM.createRoot(
@@ -11,9 +10,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BodyStyle />
-    <PuppiesContextProvider>
-      <App />
-    </PuppiesContextProvider>
+    <App />
   </React.StrictMode>
 );
 

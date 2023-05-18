@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,11 +5,10 @@ import {
   faPaw,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormEvent, useState } from 'react';
-import { usePuppies } from '../helpers/PuppiesContext';
+import { useState } from 'react';
 import { Button, PuppyImage, colors } from '../helpers/theme';
-import { addPuppy } from '../helpers/puppiesApi';
 import { fetchImage } from '../helpers/fetchImage';
+import { Form } from 'react-router-dom';
 
 export const AddPuppyForm = () => {
   const [name, setName] = useState('');
@@ -19,22 +17,12 @@ export const AddPuppyForm = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [image, setImage] = useState<string | null>(null);
 
-  const { fetchPuppies } = usePuppies();
-
   const handleBreedChange = async () => {
     setImage(await fetchImage(breed));
   };
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
     setShowAddForm(false);
-    await addPuppy({
-      name: name,
-      breed: breed,
-      birthdate: birthDate,
-      image: image,
-    });
-    fetchPuppies();
     setName('');
     setBreed('');
     setBirthDate('');
@@ -44,8 +32,9 @@ export const AddPuppyForm = () => {
     <AddPuppyContainer>
       {showAddForm ? (
         <FormContainer>
-          <AddInfoForm onSubmit={handleSubmit}>
+          <AddInfoForm method="post" onSubmit={handleSubmit}>
             <NameInput
+              name="name"
               type="text"
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
@@ -59,6 +48,7 @@ export const AddPuppyForm = () => {
                 style={{ paddingInline: 10 }}
               />
               <DetailsInput
+                name="breed"
                 type="text"
                 placeholder="Breed"
                 onChange={(e) => setBreed(e.target.value)}
@@ -74,6 +64,7 @@ export const AddPuppyForm = () => {
                 style={{ paddingInline: 10 }}
               />
               <DetailsInput
+                name="birthdate"
                 type="date"
                 max={new Date().toISOString().split('T')[0]}
                 placeholder="Date of birth"
@@ -82,7 +73,8 @@ export const AddPuppyForm = () => {
                 required
               />
             </FieldContainer>
-            <PuppyImage isAddNewPuppy src={image || '/cover-default.jpg'} />
+            <PuppyImage isLargeImage isMobileAdjusted src={image || '/cover-default.jpg'} />
+            {image && <input name="image" type="hidden" value={image} />}
             <AddPuppyButton type="submit">
               Add <b>{name}</b> to the collection
             </AddPuppyButton>
@@ -159,7 +151,7 @@ const FormContainer = styled.div`
   }
 `;
 
-const AddInfoForm = styled.form`
+const AddInfoForm = styled(Form)`
   max-width: 350px;
   flex-direction: column;
   align-items: stretch;

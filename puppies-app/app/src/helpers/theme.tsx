@@ -35,9 +35,15 @@ export const Button = styled.button<{ delete?: boolean }>`
   }
 `;
 
-export const PuppyImage = styled.img<{ isAddNewPuppy?: boolean }>`
-  width: ${(props) => (props.isAddNewPuppy ? '348px' : '198px')};
-  height: ${(props) => (props.isAddNewPuppy ? '348px' : '198px')};
+export const PuppyImage = styled.img<{ isLargeImage?: boolean, isMobileAdjusted?: boolean }>`
+  width: ${(props) => (props.isLargeImage ? '348px' : '198px')};
+  height: ${(props) => (props.isLargeImage ? '348px' : '198px')};
   object-fit: cover;
   padding: 5px;
+  border-radius: 20px;
+  
+  @media (max-width: 425px) {
+    width: ${(props) => (props.isMobileAdjusted ? '240px' : '198px')};
+    height: ${(props) => (props.isMobileAdjusted ? '240px' : '198px')};
+  }
 `;
