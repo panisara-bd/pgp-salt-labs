@@ -76,7 +76,7 @@ const SearchBoxInput = styled.input`
   font-size: 16px;
   background: #fff;
 
-  @media (max-width: 425px) {
+  @media (max-width: 530px) {
     width: 250px;
   }
 `;
@@ -96,7 +96,7 @@ const SearchResults = styled(Link)`
     background: ${colors.blue};
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 530px) {
     width: 170px;
   }
 `;

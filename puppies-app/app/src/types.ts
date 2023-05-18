@@ -4,4 +4,9 @@ export type PuppiesType = {
   breed: string;
   birthdate: string;
   image: string | null;
+  allergies: string;
+  favFood: string;
+  favToy: string;
+  spayed: string;
+  about: string;
 };

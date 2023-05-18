@@ -13,6 +13,7 @@ export const loader: LoaderFunction = async (): Promise<LoaderData> => {
   const response = await fetch('http://localhost:8080/api/puppies');
   if (!response.ok) throw response;
   const result = await response.json();
+  result.reverse();
   return { puppies: result };
 };
 

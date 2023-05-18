@@ -26,6 +26,11 @@ export const updatePuppy = async (updatedPuppy: PuppiesType) => {
         birthdate: updatedPuppy.birthdate,
         breed: updatedPuppy.breed,
         image: updatedPuppy.image,
+        allergies: updatedPuppy.allergies,
+        favFood: updatedPuppy.favFood,
+        favToy: updatedPuppy.favToy,
+        spayed: updatedPuppy.spayed,
+        about: updatedPuppy.about,
       }),
     });
   } catch (e) {
@@ -58,6 +63,11 @@ export const addPuppy = async (newPuppy: PuppiesType) => {
         birthdate: newPuppy.birthdate,
         breed: newPuppy.breed,
         image: newPuppy.image,
+        allergies: newPuppy.allergies,
+        favFood: newPuppy.favFood,
+        favToy: newPuppy.favToy,
+        spayed: newPuppy.spayed,
+        about: newPuppy.about,
       }),
     });
   } catch (e) {

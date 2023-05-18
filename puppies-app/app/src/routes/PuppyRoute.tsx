@@ -29,6 +29,12 @@ export const action: ActionFunction = async ({ request, params: { id } }) => {
 
   if (request.method.toLowerCase() === 'put') {
     const fields = Object.fromEntries(await request.formData()) as PuppiesType;
+    (Object.keys(fields) as Array<keyof PuppiesType>).forEach(key => {
+      if (!fields[key]) {
+        delete fields[key];
+      }
+    })
+    
     await updatePuppy({ _id: id, ...fields });
     return null;
   }

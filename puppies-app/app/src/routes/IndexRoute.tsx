@@ -43,7 +43,7 @@ const CardsContainer = styled.div`
   margin-bottom: 80px;
   flex-wrap: wrap;
 
-  @media (max-width: 425px) {
+  @media (max-width: 530px) {
     flex-direction: column;
     align-items: center;
   }

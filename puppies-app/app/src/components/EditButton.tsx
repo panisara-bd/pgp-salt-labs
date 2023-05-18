@@ -28,7 +28,7 @@ const Button = styled.button<{ showUpdateForm: boolean }>`
   width: 100%;
   border-radius: 20px;
   padding: 10px;
-  margin: 10px;
+  margin: 0;
   color: ${colors.dark};
   font-weight: 700;
 

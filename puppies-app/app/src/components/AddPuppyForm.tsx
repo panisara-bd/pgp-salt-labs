@@ -23,6 +23,7 @@ export const AddPuppyForm = () => {
 
   const handleSubmit = async () => {
     setShowAddForm(false);
+    setImage(null);
     setName('');
     setBreed('');
     setBirthDate('');
@@ -145,7 +146,7 @@ const FormContainer = styled.div`
   position: relative;
   background: ${colors.purple};
 
-  @media (max-width: 425px) {
+  @media (max-width: 530px) {
     padding: 20px;
     max-width: 250px;
   }

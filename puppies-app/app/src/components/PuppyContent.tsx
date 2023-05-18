@@ -11,16 +11,21 @@ import { colors } from '../helpers/theme';
 
 type Props = {
   puppy: PuppiesType;
-  
-}
+};
 
-export const PuppyContent = ({ puppy}: Props) => {
+export const PuppyContent = ({ puppy }: Props) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   return (
     <>
       <ContentHeader>
-      <Back to="/"> <FontAwesomeIcon icon={faArrowLeft} style={{paddingRight: 5}} />Back</Back>
-      <EditButton setShowUpdateForm={setShowUpdateForm} showUpdateForm={showUpdateForm} />
+        <Back to="/">
+          <FontAwesomeIcon icon={faArrowLeft} style={{ paddingRight: 5 }} />
+          Back
+        </Back>
+        <EditButton
+          setShowUpdateForm={setShowUpdateForm}
+          showUpdateForm={showUpdateForm}
+        />
       </ContentHeader>
       {showUpdateForm ? (
         <PuppyContentEdit
@@ -36,23 +41,22 @@ export const PuppyContent = ({ puppy}: Props) => {
 
 const ContentHeader = styled.div`
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   max-width: 500px;
+  padding-inline: 20px;
+  box-sizing: border-box;
   width: 100%;
   justify-content: space-between;
+`;
 
-  @media (max-width: 425px) {
-    justify-content: space-around;
-  }
-`
 const Back = styled(Link)`
   padding: 10px;
-  margin: 10px; 
+  margin: 0;
   text-decoration: none;
   font-family: sans-serif;
   color: ${colors.dark};
-  
+
   &:hover {
     color: ${colors.blue};
   }
-`
+`;
