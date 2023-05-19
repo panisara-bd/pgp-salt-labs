@@ -1,8 +1,36 @@
 import { PuppiesType } from '../types';
 
+const HOST = 'https://tortellini.co/puppies'
+
+export const getAllPuppies = async () => {
+  const response = await fetch(`${HOST}/api/puppies`);
+  if (!response.ok) {
+    return [];
+  }
+  const result = await response.json();
+  result.reverse();
+  return result;
+}
+
+export const searchPuppy = async (query: string) => {
+  try {
+    const response = await fetch(
+      `${HOST}/api/puppies/search?query=${query}`
+    );
+    if (response.ok) {
+      const results = await response.json();
+      return results
+    } else {
+      return [];
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const getPuppy = async (id: string) => {
   try {
-    const response = await fetch(`http://localhost:8080/api/puppies/${id}`);
+    const response = await fetch(`${HOST}/api/puppies/${id}`);
     if (response.ok) {
       const result = await response.json();
       return result.puppy;
@@ -16,7 +44,7 @@ export const getPuppy = async (id: string) => {
 
 export const updatePuppy = async (updatedPuppy: PuppiesType) => {
   try {
-    await fetch(`http://localhost:8080/api/puppies/${updatedPuppy._id}`, {
+    await fetch(`${HOST}/api/puppies/${updatedPuppy._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +68,7 @@ export const updatePuppy = async (updatedPuppy: PuppiesType) => {
 
 export const deletePuppy = async (id: string) => {
   try {
-    await fetch(`http://localhost:8080/api/puppies/${id}`, {
+    await fetch(`${HOST}/api/puppies/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +81,7 @@ export const deletePuppy = async (id: string) => {
 
 export const addPuppy = async (newPuppy: PuppiesType) => {
   try {
-    await fetch(`http://localhost:8080/api/puppies`, {
+    await fetch(`${HOST}/api/puppies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

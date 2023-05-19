@@ -4,7 +4,7 @@ dotenv.config();
 import { mongoClient } from './src/db';
 import app from './src/app';
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 mongoClient
   .connect()

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { colors } from '../helpers/theme';
 import { Link } from 'react-router-dom';
+import { searchPuppy } from '../helpers/puppiesApi';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,19 +13,8 @@ export const Search = () => {
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout>();
 
   const fetchSearchResult = async (query: string) => {
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/puppies/search?query=${query}`
-      );
-      if (response.ok) {
-        const results = await response.json();
-        setSearchResults(results);
-      } else {
-        setSearchResults([]);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    const results = await searchPuppy(query);
+    setSearchResults(results);
   };
 
   const onSearchChange = async (query: string) => {

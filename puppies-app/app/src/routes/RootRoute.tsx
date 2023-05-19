@@ -4,16 +4,14 @@ import { faDog } from '@fortawesome/free-solid-svg-icons';
 import { LoaderFunction, Outlet } from 'react-router-dom';
 import { colors } from '../helpers/theme';
 import { PuppiesType } from '../types';
+import { getAllPuppies } from '../helpers/puppiesApi';
 
 type LoaderData = {
   puppies: PuppiesType[];
 };
 
 export const loader: LoaderFunction = async (): Promise<LoaderData> => {
-  const response = await fetch('http://localhost:8080/api/puppies');
-  if (!response.ok) throw response;
-  const result = await response.json();
-  result.reverse();
+  const result = await getAllPuppies();
   return { puppies: result };
 };
 
@@ -21,7 +19,7 @@ export default function RootRoute() {
   return (
     <PageContainer>
       <Header>
-        <FontAwesomeIcon icon={faDog} size="sm" style={{paddingRight: 15}}/>
+        <FontAwesomeIcon icon={faDog} size="sm" style={{ paddingRight: 15 }} />
         Puppies Collection
       </Header>
       <Outlet />
