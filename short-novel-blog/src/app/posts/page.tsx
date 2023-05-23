@@ -1,18 +1,21 @@
 import { getPosts } from '@/helpers/getPosts';
-import { PostType } from '@/types';
-import Link from 'next/link';
+import { getTopTags } from '@/helpers/tags';
+import Tag from './tag';
+
+type TagCounter = {
+  name: string;
+  count: number;
+};
 
 export default async function Page() {
-  const { posts } = await getPosts();
+  const posts = await getPosts();
+  const tagCounters = getTopTags(posts);
+
   return (
     <div>
-      <ul>
-        {posts.map((post: PostType) => (
-          <li key={post.id}>
-            <Link href={`/posts/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
+      {tagCounters.map((tagCounter) => (
+        <Tag tagCounter={tagCounter} posts={posts} />
+      ))}
     </div>
   );
 }

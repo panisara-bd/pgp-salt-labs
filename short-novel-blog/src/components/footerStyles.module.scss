@@ -1,0 +1,66 @@
+@use '../helpers/theme.module.scss' as theme;
+
+.footer {
+  @include theme.backgroundBlack;
+  display: block;
+  position: absolute;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  left:0;
+  right:0;
+  bottom:0;
+
+  @media only screen and (max-width: 600px){
+    padding-inline: 0;
+    flex-direction: column;
+  }
+}
+.newsLetterContainer {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+
+  @media only screen and (max-width: 600px){
+    padding: 0;
+    padding-left: 20px;
+    padding-block: 30px;
+    max-width: 350px;
+  }
+}
+
+
+.heading {
+  @include theme.headerTextWhite;
+  margin-bottom: 0;
+}
+
+.subHeading {
+  @include theme.subTextWhite;
+}
+
+.newsLetterInput {
+  @include theme.input;
+  margin-right: 12px;
+  margin-bottom: 10px;
+}
+
+.newsLetterButton {
+  @include theme.buttonLight;
+}
+
+.aboutContainer {
+  max-width: 400px;
+  width: 100%;
+  padding-block: 50px;
+
+  @media only screen and (max-width: 600px){
+    padding: 0;
+    padding-left: 20px;
+    padding-block: 30px;
+    max-width: 350px;
+  }
+}
