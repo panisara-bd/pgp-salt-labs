@@ -15,7 +15,7 @@ export default async function Page() {
       <h2 className={styles.header}>Top 5 categories</h2>
       <TagNav tagCounters={topFiveTagCounters} />
       {topFiveTagCounters.map((tagCounter) => (
-        <Tag tagCounter={tagCounter} posts={posts} />
+        <Tag key={tagCounter.name} tagCounter={tagCounter} posts={posts} />
       ))}
     </div>
   );

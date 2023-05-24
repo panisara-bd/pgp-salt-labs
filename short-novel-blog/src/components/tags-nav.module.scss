@@ -19,11 +19,12 @@
     @include theme.subTextBlack;
     @include theme.tagChip;
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
 .tagNavActive {
     @include theme.subTextBlack;
     @include theme.tagChip;
     @include theme.backgroundBrown;
+    border: 2px solid #e5855e;
 }

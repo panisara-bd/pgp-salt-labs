@@ -13,7 +13,7 @@ export default async function Home() {
       <h2 className={styles.header}>All categories</h2>
       <TagNav tagCounters={tagCounters} />
       {tagCounters.map((tagCounter) => (
-        <Tag tagCounter={tagCounter} posts={posts} />
+        <Tag key={tagCounter.name} tagCounter={tagCounter} posts={posts} />
       ))}
     </div>
   );

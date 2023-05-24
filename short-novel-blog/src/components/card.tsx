@@ -7,11 +7,7 @@ type Props = {
 };
 
 export default function PostCard({ post }: Props) {
-  const randomizeColors = Math.floor(Math.random() * 16777215).toString(16);
-  const randomColor: string[] = [];
-
-  // console.log(randomColor.push(`#${randomizeColors}`));
-
+  
   return (
     <li className={styles.cardContainer}>
       <Link className={styles.cardDetail} href={`/posts/${post.id}`}>
@@ -19,7 +15,7 @@ export default function PostCard({ post }: Props) {
       </Link>
       <div className={styles.cardTagsContainer}>
         {post.tags.map((tag) => (
-          <Link className={styles.cardTag} href={`/tag/${tag}`}>
+          <Link key={tag} className={styles.cardTag} href={`/tag/${tag}`}>
             {tag}
           </Link>
         ))}
