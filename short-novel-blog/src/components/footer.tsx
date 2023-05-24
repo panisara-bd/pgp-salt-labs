@@ -6,7 +6,7 @@ export const Footer = () => {
       <div className={styles.newsLetterContainer}>
         <h4 className={styles.heading}>READ WHAT YOU LOVE</h4>
         <p className={styles.subHeading}>Subscribe to our newsletters and read awesome new stories</p>
-        <form>
+        <form className={styles.formContianer}>
         <input placeholder="Your email adress" className={styles.newsLetterInput}/>
         <button type="submit" className={styles.newsLetterButton}>Subscribe</button>
         </form>

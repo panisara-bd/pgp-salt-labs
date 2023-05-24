@@ -2,8 +2,9 @@
 
 import { TagCounter } from '@/helpers/tags';
 import { PostType } from '@/types';
-import React, { useEffect } from 'react';
-import PostCard from './post-card';
+import React from 'react';
+import PostCards from './cards-collection';
+import styles from './tag.module.scss';
 
 type Props = {
   tagCounter: TagCounter;
@@ -16,17 +17,12 @@ export default function Tag({ tagCounter, posts }: Props) {
   const toggleIsOpened = () => setIsOpened(!isOpened);
 
   return (
-    <div>
-      <h2 onClick={toggleIsOpened}>
-        {tagCounter.name} ({tagCounter.count} posts)
-      </h2>
-      {isOpened && (
-        <ul>
-          {tagPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </ul>
-      )}
+    <div className={styles.tagContainer}>
+      <h2 className={styles.tagHeader} onClick={toggleIsOpened}>
+        {tagCounter.name}
+      <span className={styles.tagCounts}>{tagCounter.count} posts</span>
+      </h2>{' '}
+      {isOpened && <PostCards posts={tagPosts} />}
     </div>
   );
 }

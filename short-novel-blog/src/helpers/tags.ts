@@ -5,7 +5,7 @@ export type TagCounter = {
   count: number;
 };
 
-export const getTopTags = (posts: PostType[]): TagCounter[] => {
+export const getAllTags = (posts: PostType[]): TagCounter[] => {
   const tagCounters: TagCounter[] = [];
   posts.forEach((post) => {
     post.tags.forEach((tag) => {
@@ -17,7 +17,8 @@ export const getTopTags = (posts: PostType[]): TagCounter[] => {
       }
     });
   });
+ 
+  return tagCounters
+}
 
-  tagCounters.sort((a, b) => b.count - a.count);
-  return tagCounters.slice(0, 5);
-};
+

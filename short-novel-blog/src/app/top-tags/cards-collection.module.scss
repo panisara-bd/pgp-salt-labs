@@ -1,0 +1,17 @@
+@use '../../helpers/theme.module.scss' as theme;
+
+.cardsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+    gap: 13px;
+    padding-inline: 10px;
+
+
+    @media only screen and (max-width: 600px) {
+        padding: 10px;
+        justify-content: center;
+        padding-inline: 10px;
+    }
+}

@@ -8,7 +8,7 @@
     justify-content: space-between;
     border-bottom: 4px solid #000;
 
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 730px) {
         flex-direction: column;
         justify-content: center;
     }
@@ -19,10 +19,19 @@
     padding-left: 30px;
     text-decoration: none;
 
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 730px) {
         padding-top: 30px;
     }
 
+}
+
+.subContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
 }
 
 .searchBarContainer {
@@ -33,16 +42,18 @@
     position: relative;
     padding-left: 30px;
 
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 600px) {
         max-width: 560px;
+        width: 100%;
         margin-block: 15px;
-        padding-left: 0;
+        padding-left: 20px;
     }
 }
 
 .searchBar {
     @include theme.input;
     padding-left: 45px;
+    width: 60%;
 }
 
 .searchIcon {
@@ -52,15 +63,21 @@
     padding-left: 15px;
 }
 
-.dropDown {
+
+
+.navButtonContainer {
     display: flex;
     flex-direction: column;
     max-width: 200px;
     width: 100%;
     position: relative;
 
-    @media only screen and (max-width: 600px){
-        max-width: 600px;
+    @media only screen and (max-width: 600px) {
+        max-width: 100px;
+    }
+
+    @media only screen and (max-width: 340px) {
+        max-width: 80px;
     }
 }
 
@@ -70,9 +87,10 @@
     border: none;
     background-color: black;
     cursor: pointer;
+    text-align: center;
 
-    @media only screen and (max-width: 600px){
-        padding: 15px 0;
+    @media only screen and (max-width: 600px) {
+        padding: 25px 0;
     }
 }
 
@@ -80,8 +98,8 @@
     width: 30px;
     fill: white;
 
-    @media only screen and (max-width: 600px){
-        width: 15px;
+    @media only screen and (max-width: 600px) {
+        max-width: 25px;
     }
 }
 
@@ -95,13 +113,16 @@
     width: 100%;
     z-index: 1;
 
-    @media only screen and (max-width: 600px){
-      max-width: 600px;
-       position: relative;
-       right: unset;
-       top: unset;
+    @media only screen and (max-width: 730px) {
+        max-width: 730px;
+        position: fixed;
+        right: unset;
+        top: 170px;
     }
 
+    @media only screen and (max-width: 600px) {
+        top: 145px;
+    }
 }
 
 .navLink {
@@ -113,7 +134,7 @@
     border-radius: 0;
     border-top: none;
 
-    @media only screen and (max-width: 600px){
+    @media only screen and (max-width: 600px) {
         line-height: 30px;
     }
 }

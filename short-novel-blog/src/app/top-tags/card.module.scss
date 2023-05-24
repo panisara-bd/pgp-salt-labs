@@ -1,0 +1,52 @@
+@use '../../helpers/theme.module.scss' as theme;
+
+.cardContainer {
+   @include theme.buttonLight;
+   display: flex;
+   flex-direction: column;
+   border-radius: 10px;
+   width: 25%;
+   height: 180px;
+   justify-content: space-between;
+
+   @media only screen and (max-width: 800px) {
+      width: 100%;
+   }
+}
+
+.cardDetail {
+   @include theme.headerTextDark;
+   text-decoration: none;
+   font-size: 18px;
+   margin-top: 20px;
+
+}
+
+.cardTagsContainer {
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: flex-end;
+   align-content: flex-start;
+   align-items: flex-end;
+   max-width: inherit;
+   height: 50px;
+   overflow: scroll;
+}
+
+.cardTag {
+   @include theme.subTextBlack;
+   text-decoration: none;
+   font-weight: 700;
+   padding: 5px 15px;
+   margin: 2px;
+   font-size: 14px;
+   height: 20px;
+   background-color:#FFB6C1;
+   border-radius: 20px;
+
+   &:hover {
+      background-color: black;
+      color:#e5855e;
+   }
+}
