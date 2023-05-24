@@ -25,4 +25,5 @@
 .tagNavActive {
     @include theme.subTextBlack;
     @include theme.tagChip;
+    @include theme.backgroundBrown;
 }

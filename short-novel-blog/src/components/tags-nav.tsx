@@ -4,18 +4,23 @@ import styles from './tags-nav.module.scss';
 
 type Props = {
   tagCounters: TagCounter[];
+  params: string ;
 };
 
-export default function TagNav({ tagCounters }: Props) {
+export default function TagNav({ tagCounters, params }: Props) {
+console.log(params);
+
   return (
     <div className={styles.tagNavContainer}>
-      <Link className={styles.tagNav} href={'/'}>
+      <Link className={`${
+            params === undefined ? styles.tagNavActive : styles.tagNav
+          }`} href={'/'}>
         all
       </Link>
       {tagCounters.map((tag) => (
         <Link
           className={`${
-            tag.name === tag.name ? styles.tagNav : styles.tagNavActive
+            tag.name === params ? styles.tagNavActive : styles.tagNav
           }`}
           href={`/tag/${tag.name}`}
         >

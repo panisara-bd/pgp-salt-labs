@@ -17,7 +17,7 @@ export default async function PostsByTag({ params }: Props) {
   return (
     <div className={styles.pageContainer}>
       <h2 className={styles.header}>{tagName}</h2>
-      <TagNav tagCounters={allTags} />
+      <TagNav tagCounters={allTags} params={tagName}/>
       {matchedTagName ? (
         <Tag tagCounter={matchedTagName} posts={posts} />
       ) : (
