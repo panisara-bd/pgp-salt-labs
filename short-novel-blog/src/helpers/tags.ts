@@ -17,8 +17,6 @@ export const getAllTags = (posts: PostType[]): TagCounter[] => {
       }
     });
   });
- 
-  return tagCounters
-}
 
-
+  return tagCounters;
+};

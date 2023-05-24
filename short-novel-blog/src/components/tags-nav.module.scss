@@ -1,0 +1,28 @@
+@use '../helpers/theme.module.scss' as theme;
+
+.tagNavContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: flex-start;
+    align-items: flex-end;
+    align-self: center;
+    max-width: 800px;
+    width: 100%;
+    height: 50px;
+    overflow: scroll;
+    margin-bottom: 30px;
+}
+
+.tagNav {
+    @include theme.subTextBlack;
+    @include theme.tagChip;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.tagNavActive {
+    @include theme.subTextBlack;
+    @include theme.tagChip;
+}

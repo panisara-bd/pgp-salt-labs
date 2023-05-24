@@ -1,6 +1,6 @@
-import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/footer';
 import styles from './layout.module.scss';
-import Header from '@/components/Header';
+import Header from '@/components/header';
 
 export const metadata = {
   title: 'Short Novel Blog',

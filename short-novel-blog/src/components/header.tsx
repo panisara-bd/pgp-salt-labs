@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import styles from './headerStyles.module.scss';
+import styles from './header.module.scss';
 import { useState } from 'react';
-import { render } from 'react-dom';
 
 export default function Header() {
   const [isShowDropDown, setIsShowDropDown] = useState(false);
@@ -55,7 +54,7 @@ export default function Header() {
               href="/"
               onClick={() => setIsShowDropDown(false)}
             >
-              Home
+              All Categories
             </Link>
             <Link
               className={styles.navLink}

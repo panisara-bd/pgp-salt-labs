@@ -1,4 +1,4 @@
-@use '../../helpers/theme.module.scss' as theme;
+@use '../helpers/theme.module.scss' as theme;
 
 .tagContainer {
     display: flex;
@@ -23,6 +23,7 @@
     margin: 1px;
     background-color: #000;
     border-radius: 0;
+    text-transform: uppercase;
     cursor: pointer;
 }
 

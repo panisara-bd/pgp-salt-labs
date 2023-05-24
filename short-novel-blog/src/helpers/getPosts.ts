@@ -11,9 +11,7 @@ export const getPosts = async (): Promise<PostType[]> => {
   return result.posts;
 };
 
-export const getPostById = async (
-  id: string
-): Promise<PostType> => {
+export const getPostById = async (id: string): Promise<PostType> => {
   const response = await fetch(`https://dummyjson.com/posts/${id}`, {
     cache: 'no-store',
   });

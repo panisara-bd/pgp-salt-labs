@@ -3,8 +3,9 @@
 import { TagCounter } from '@/helpers/tags';
 import { PostType } from '@/types';
 import React from 'react';
-import PostCards from './cards-collection';
+
 import styles from './tag.module.scss';
+import PostCards from './cards-collection';
 
 type Props = {
   tagCounter: TagCounter;
@@ -20,7 +21,7 @@ export default function Tag({ tagCounter, posts }: Props) {
     <div className={styles.tagContainer}>
       <h2 className={styles.tagHeader} onClick={toggleIsOpened}>
         {tagCounter.name}
-      <span className={styles.tagCounts}>{tagCounter.count} posts</span>
+        <span className={styles.tagCounts}>{tagCounter.count} posts</span>
       </h2>{' '}
       {isOpened && <PostCards posts={tagPosts} />}
     </div>

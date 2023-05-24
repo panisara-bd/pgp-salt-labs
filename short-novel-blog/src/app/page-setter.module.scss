@@ -1,3 +1,5 @@
+@use '../helpers/theme.module.scss' as theme;
+
 .pageContainer {
     display: flex;
     flex-direction: column;
@@ -6,4 +8,6 @@
 
 .header {
     @include theme.headerTextDark;
+    text-align: center;
+    text-transform: uppercase;
 }
