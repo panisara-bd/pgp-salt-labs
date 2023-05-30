@@ -10,8 +10,7 @@ export const schema = Joi.object().keys({
 export const searchProductsRoute = (req: Request, res: Response) => {
 
   const {value: {query, types}} = schema.validate(req.query);
-  const data = getProductsData();
-  const products = data.results;
+  const products = getProductsData();
 
   const results = products.filter(({ name }) =>
     !query || name.toLocaleLowerCase().includes(query.toLocaleLowerCase())

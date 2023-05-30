@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 export const getMilkByIdRoute = (req: Request, res: Response) => {
   const id = req.params.id;
-  const products = getProductsData().results;
+  const products = getProductsData();
   const product = products.find((p) => p.id === id);
   if (!product) {
     res.sendStatus(404);
