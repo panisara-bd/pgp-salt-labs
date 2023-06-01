@@ -1,10 +1,11 @@
+import { useCartContext } from '@/helpers/CartContext';
 import { colors } from '@/helpers/colors';
 import { HOST, fetchById } from '@/helpers/productsApi';
 import { ProductType } from '@/types';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 export default function ProductPage() {
@@ -12,6 +13,13 @@ export default function ProductPage() {
   const [storageCount, setStorageCount] = useState(1);
   const router = useRouter();
   const id = router.query.id as string;
+  const { addProductToCart, setIsCartOpen } = useCartContext();
+
+  const handleOrder = () => {
+    if (!product) return;
+    addProductToCart(product, storageCount);
+    setIsCartOpen(true);
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -62,7 +70,9 @@ export default function ProductPage() {
               />
               {'  '}Liter(s)
             </ProductText>
-            <OrderButton disabled={storageCount <= 0} onClick={() => console.log(storageCount)}>Order</OrderButton>
+            <OrderButton disabled={storageCount <= 0} onClick={handleOrder}>
+              Add to cart
+            </OrderButton>
           </DetailContainer>
         </ProductContainer>
       )}

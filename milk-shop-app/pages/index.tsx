@@ -10,10 +10,7 @@ import { Pagination } from '@/components/Pagination';
 
 const LIMIT = 9;
 
-const useDebouncedSearch = (
-  fetchFn: () => void,
-  query: string,
-) => {
+const useDebouncedSearch = (fetchFn: () => void, query: string) => {
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -39,7 +36,12 @@ export default function Home() {
   const [offset, setOffset] = useState(0);
 
   const fetchSearchResult = async () => {
-    const result = await searchProducts(searchQuery, checkedTypes, LIMIT, offset);
+    const result = await searchProducts(
+      searchQuery,
+      checkedTypes,
+      LIMIT,
+      offset
+    );
     setProducts(result.products);
     setSearchResultsCount(result.count);
   };
@@ -51,13 +53,13 @@ export default function Home() {
 
   return (
     <ContentWraper>
-      <SearchWrapper>
+      <SubHeader>
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <FilterByTypes
           checkedTypes={checkedTypes}
           setCheckedTypes={setCheckedTypes}
         />
-      </SearchWrapper>
+      </SubHeader>
       {searchQuery !== '' || checkedTypes.length ? (
         <ResultChipsContainer>
           Results for{' '}
@@ -75,7 +77,12 @@ export default function Home() {
           <ProductCard key={milk.id} product={milk} id={milk.id} />
         ))}
       </CardsContainer>
-      <Pagination count={searchResultsCount} limit={LIMIT} setOffset={setOffset} />
+      <Pagination
+        count={searchResultsCount}
+        limit={LIMIT}
+        setOffset={setOffset}
+        offset={offset}
+      />
     </ContentWraper>
   );
 }
@@ -88,11 +95,14 @@ const ContentWraper = styled.div`
   margin-inline: 30px;
 `;
 
-const SearchWrapper = styled.div`
+const SubHeader = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
   position: relative;
+  gap: 30px;
+  margin-inline: 20px;
 `;
 
 const CardsContainer = styled.div`

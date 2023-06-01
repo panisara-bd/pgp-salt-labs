@@ -27,6 +27,8 @@ export const SearchBar = ({ searchQuery, setSearchQuery }: Props) => {
 const SearchBoxContainer = styled.div`
   display: block;
   position: relative;
+  max-width: 900px;
+  width: 100%;
 `;
 
 const SearchIcon = styled.div`
