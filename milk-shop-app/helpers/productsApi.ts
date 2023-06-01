@@ -9,16 +9,16 @@ export const getAllProducts = async () => {
   return result;
 };
 
-export const searchProducts = async (query: string, types: string[]) => {
+export const searchProducts = async (query: string, types: string[], limit: number, offset: number) => {
   try {
     const typesQuery = types.length
-      ? `&types=${types
+      ? `&types[]=${types
           .map((type) => encodeURIComponent(type))
-          .join('&types=')}`
+          .join('&types[]=')}`
       : '';
 
     const response = await fetch(
-      `${HOST}/api/products/search?query=${query}${typesQuery}`
+      `${HOST}/api/products/search?query=${query}${typesQuery}&limit=${limit}&offset=${offset}`
     );
     if (response.ok) {
       const results = await response.json();

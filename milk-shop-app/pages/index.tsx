@@ -6,11 +6,13 @@ import { searchProducts } from '@/helpers/productsApi';
 import { ProductType } from '@/types';
 import { ProductCard } from '@/components/ProductCard';
 import { FilterByTypes } from '@/components/FilterByTypes';
+import { Pagination } from '@/components/Pagination';
+
+const LIMIT = 9;
 
 const useDebouncedSearch = (
   fetchFn: () => void,
   query: string,
-  checkedTypes: string[]
 ) => {
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout>();
 
@@ -26,20 +28,26 @@ const useDebouncedSearch = (
 
     const timeout = setTimeout(fetchFn, 500);
     setDebounceTimeout(timeout);
-  }, [query, checkedTypes]);
+  }, [query]);
 };
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [searchResultsCount, setSearchResultsCount] = useState(0);
   const [checkedTypes, setCheckedTypes] = useState<string[]>([]);
+  const [offset, setOffset] = useState(0);
 
   const fetchSearchResult = async () => {
-    const results = await searchProducts(searchQuery, checkedTypes);
-    setProducts(results);
+    const result = await searchProducts(searchQuery, checkedTypes, LIMIT, offset);
+    setProducts(result.products);
+    setSearchResultsCount(result.count);
   };
 
-  useDebouncedSearch(fetchSearchResult, searchQuery, checkedTypes);
+  useDebouncedSearch(fetchSearchResult, searchQuery);
+  useEffect(() => {
+    fetchSearchResult();
+  }, [checkedTypes, offset]);
 
   return (
     <ContentWraper>
@@ -61,12 +69,13 @@ export default function Home() {
           ))}
         </ResultChipsContainer>
       ) : null}
-      <ProductsCount>{products.length} products</ProductsCount>
+      <ProductsCount>{searchResultsCount} products</ProductsCount>
       <CardsContainer>
         {products.map((milk) => (
           <ProductCard key={milk.id} product={milk} id={milk.id} />
         ))}
       </CardsContainer>
+      <Pagination count={searchResultsCount} limit={LIMIT} setOffset={setOffset} />
     </ContentWraper>
   );
 }

@@ -3,14 +3,23 @@ import { getProductsData } from '../data/getProductsData';
 import { Request, Response } from 'express';
 
 export const schema = Joi.object().keys({
-  query: Joi.string(),
+  query: Joi.string().allow(''),
   types: Joi.array().items(Joi.string()),
+  offset: Joi.number().integer().min(0).default(0),
+  limit: Joi.number().integer().min(1).max(9).default(9),
 });
 
 export const searchProductsRoute = (req: Request, res: Response) => {
   const {
-    value: { query, types },
+    value: { query, types, offset, limit },
+    error,
   } = schema.validate(req.query);
+
+  if (error) {
+    res.status(400).json(error.details);
+    return;
+  }
+
   const products = getProductsData();
 
   const results = products
@@ -20,5 +29,10 @@ export const searchProductsRoute = (req: Request, res: Response) => {
     )
     .filter(({ type }) => !types || types.length === 0 || types.includes(type));
 
-  res.status(200).json(results);
+  const paginatedResults = results.slice(offset, offset + limit);
+
+  res.status(200).json({
+    count: results.length,
+    products: paginatedResults,
+  });
 };
