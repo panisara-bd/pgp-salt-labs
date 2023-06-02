@@ -1,4 +1,4 @@
-export const HOST = 'http://localhost:8080';
+export const HOST = 'https://tortellini.co/milk-shop';
 
 export const getAllProducts = async () => {
   const response = await fetch(`${HOST}/api/products`);

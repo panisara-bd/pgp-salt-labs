@@ -11,7 +11,8 @@ const path = require('path');
 const app: Application = express();
 
 const allowedOrigins = [
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'https://pgp-milk-shop-code-test.vercel.app',
 ];
 
 app.use(
